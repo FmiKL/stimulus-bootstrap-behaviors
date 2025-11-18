@@ -80,23 +80,27 @@ export default class extends Controller {
   applyPlacement() {
     const menu = this.menuTarget
 
-    menu.classList.remove(
-      'dropdown-menu-start',
-      'dropdown-menu-end',
-      'bottom-center'
-    )
+    // reset styles
+    menu.style.position = 'absolute'
+    menu.style.top = '100%'
+    menu.style.left = ''
+    menu.style.right = ''
+    menu.style.transform = ''
 
     switch (this.placementValue) {
       case 'bottom-start':
-        menu.classList.add('dropdown-menu-start')
+        menu.style.left = '0'
+        menu.style.right = 'auto'
         break
 
       case 'bottom-end':
-        menu.classList.add('dropdown-menu-end')
+        menu.style.right = '0'
+        menu.style.left = 'auto'
         break
 
       case 'bottom-center':
-        menu.classList.add('bottom-center')
+        menu.style.left = '50%'
+        menu.style.transform = 'translateX(-50%)'
         break
     }
   }
