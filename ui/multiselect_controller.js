@@ -28,12 +28,6 @@
  *
  *   <div data-ui--multiselect-target="badges"></div>
  * </div>
- *
- * Behavior:
- *  - Hidden input created automatically (select keeps UI only)
- *  - Adding creates a badge + disables option
- *  - Removing restores option + updates hidden field
- *  - Select resets to placeholder or first enabled option
  */
 
 import { Controller } from '@hotwired/stimulus'

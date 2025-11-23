@@ -11,12 +11,6 @@
  * >
  *   <!-- scrollable content -->
  * </div>
- *
- * Behavior:
- *  - Dynamically calculates available height for scrolling
- *  - Takes dependencies height into account (header, footer, etc.)
- *  - Activates based on viewport breakpoint
- *  - Recalculates on window resize
  */
 
 import { Controller } from '@hotwired/stimulus'
