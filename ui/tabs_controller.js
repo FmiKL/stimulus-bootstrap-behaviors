@@ -7,11 +7,6 @@
  *   <a data-ui--tabs-target="tab" href="#pane1" data-action="click->ui--tabs#show">Tab</a>
  *   <div data-ui--tabs-target="panel" id="pane1" class="tab-pane fade"></div>
  * </div>
- *
- * Behavior:
- *  - Mimics Bootstrap's tab switching logic
- *  - Applies .active/.show classes to tabs and panels
- *  - Supports .fade transitions (Bootstrap CSS)
  */
 
 import { Controller } from "@hotwired/stimulus"

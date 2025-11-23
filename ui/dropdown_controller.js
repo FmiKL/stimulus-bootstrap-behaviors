@@ -17,13 +17,6 @@
  *   </div>
  *
  * </div>
- *
- * Behavior:
- *  - Pure Bootstrap CSS dropdown (no Bootstrap JS required)
- *  - Toggles .show on the dropdown menu
- *  - Supports placement: bottom-start, bottom-end, bottom-center
- *  - Click inside menu does NOT close it unless explicitly calling close()
- *  - Closes on outside click and Escape key
  */
 
 import { Controller } from "@hotwired/stimulus"

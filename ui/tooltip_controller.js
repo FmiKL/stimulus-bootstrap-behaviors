@@ -10,11 +10,6 @@
  * >
  *   Hover me
  * </button>
- *
- * Behavior:
- *  - Creates a Bootstrap-compatible tooltip on hover/focus
- *  - Supports .fade and .show animations
- *  - Placement: top, bottom, left, right
  */
 
 import { Controller } from '@hotwired/stimulus'

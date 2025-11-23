@@ -9,10 +9,6 @@
  * <div data-ui--password-meter-target="bars">
  *   <div></div><div></div><div></div><div></div>
  * </div>
- *
- * Behavior:
- *  - Evaluates password strength from 0 to 4
- *  - Activates bar segments by toggling "active" classes
  */
 
 import { Controller } from "@hotwired/stimulus"

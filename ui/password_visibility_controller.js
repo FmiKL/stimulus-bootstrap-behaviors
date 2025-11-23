@@ -1,7 +1,7 @@
 /**
  * Password Visibility Controller
  *
- * Expected HTML structure:
+ * Expected HTML:
  *
  * <div data-controller="ui--password-visibility" class="position-relative">
  *   <input
@@ -17,20 +17,6 @@
  *     <i class="ki-duotone ki-eye"></i>               <!-- hidden when masked -->
  *   </span>
  * </div>
- *
- * Targets:
- *  - input:  the password <input>
- *  - toggle: the clickable element containing the two icons
- *
- * Behavior:
- *  - Switches input type between 'password' and 'text'
- *  - Toggles visibility between <i>eye-slash</i> and <i>eye</i>
- *  - Only uses CSS classes (no external dependencies)
- *
- * Note:
- *  - The order of <i> tags inside toggleTarget matters:
- *      [0] eye-slash (visible when password is hidden)
- *      [1] eye       (visible when password is shown)
  */
 
 import { Controller } from "@hotwired/stimulus"
