@@ -30,7 +30,7 @@ The following behaviors are currently implemented and maintained:
     Show/hide password fields by toggling input type and icon states.
 
 - **Password Strength Meter**
-  Simple, visual strength evaluation (0-4) integrated with Bootstrap utility classes.
+    Simple, visual strength evaluation (0-4) integrated with Bootstrap utility classes.
 
 - **Dropdown Toggle**
     Minimal dropdown opening/closing logic that respects Bootstrap’s `.show` class.
@@ -50,6 +50,9 @@ The following behaviors are currently implemented and maintained:
 - **Multiselect Dropdown**
     Manage multiple selections with badges and hidden inputs.
 
+- **Dialog Controller**
+    Display custom alert and confirm dialogs using Bootstrap CSS only.
+    
 Each behavior is implemented as a standalone Stimulus controller and can be used independently.
 
 ---
