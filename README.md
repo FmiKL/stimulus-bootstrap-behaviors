@@ -50,8 +50,11 @@ The following behaviors are currently implemented and maintained:
 - **Multiselect Dropdown**
     Manage multiple selections with badges and hidden inputs.
 
-- **Dialog Controller**
-    Display custom alert and confirm dialogs using Bootstrap CSS only.
+**Dialog Modal**
+    Display alert and confirmation dialogs (OK/Cancel) using Bootstrap CSS only.
+
+**Content Modal**
+    Show classic modal windows for any custom content, with size options and flexible layout.
     
 Each behavior is implemented as a standalone Stimulus controller and can be used independently.
 
