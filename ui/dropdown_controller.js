@@ -33,6 +33,7 @@ export default class extends Controller {
     this.closeOnEscape = this.closeOnEscape.bind(this)
 
     this.applyPlacement()
+    this.triggerTarget.setAttribute('aria-expanded', 'false')
   }
 
   toggle(event) {
@@ -42,6 +43,7 @@ export default class extends Controller {
 
   open() {
     this.menuTarget.classList.add('show')
+    this.triggerTarget.setAttribute('aria-expanded', 'true')
 
     // global listeners to close dropdown
     document.addEventListener('click', this.closeOnOutsideClick)
@@ -52,6 +54,7 @@ export default class extends Controller {
     if (event) event.preventDefault()
 
     this.menuTarget.classList.remove('show')
+    this.triggerTarget.setAttribute('aria-expanded', 'false')
 
     // remove global listeners
     document.removeEventListener('click', this.closeOnOutsideClick)
