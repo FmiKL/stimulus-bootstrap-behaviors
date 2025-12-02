@@ -50,6 +50,9 @@ The following behaviors are currently implemented and maintained:
 - **Multiselect Dropdown**
     Manage multiple selections with badges and hidden inputs.
 
+- **Accordion**
+    Expand/collapse sections with smooth animation, following Bootstrap accordion conventions.
+
 - **Dialog Modal**
     Display alert and confirmation dialogs (OK/Cancel) using Bootstrap CSS only.
 
