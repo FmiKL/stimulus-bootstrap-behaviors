@@ -58,7 +58,10 @@ The following behaviors are currently implemented and maintained:
 
 - **Content Modal**
     Show classic modal windows for any custom content, with size options and flexible layout.
-    
+
+- **Offcanvas**
+    Show and hide side panels with backdrop, keyboard and click-to-close support, following Bootstrap offcanvas conventions.
+
 Each behavior is implemented as a standalone Stimulus controller and can be used independently.
 
 ---
