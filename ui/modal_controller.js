@@ -41,10 +41,34 @@ export default class extends Controller {
   connect() {
     this.close = this.close.bind(this)
     this.escape = this.escape.bind(this)
+    this.opened = false
+    this.closing = false
+  }
+
+  disconnect() {
+    clearTimeout(this.closeTimeout)
+    document.removeEventListener('keydown', this.escape)
+    this.backdrop?.removeEventListener('click', this.close)
+    this.backdrop?.remove()
+
+    if (this.opened) {
+      this.constructor.openCount = Math.max(0, this.constructor.openCount - 1)
+    }
+
+    if (this.constructor.openCount === 0) {
+      document.body.style.overflow = ''
+    }
+
+    this.modalTarget.classList.remove('show')
+    this.modalTarget.style.display = 'none'
+    this.opened = false
+    this.closing = false
   }
 
   open(event) {
     event?.preventDefault()
+    if (this.opened || this.closing) return
+
     this.trigger = event?.currentTarget
 
     this.messageEl = this.modalTarget.querySelector('.js-modal-message')
@@ -85,6 +109,8 @@ export default class extends Controller {
   }
 
   show() {
+    this.opened = true
+
     const index = ++this.constructor.openCount
     const zIndex = 1050 + index * 2
 
@@ -107,21 +133,30 @@ export default class extends Controller {
   }
 
   close() {
+    if (!this.opened || this.closing) return
+
+    this.closing = true
+
     const modal = this.modalTarget
+    const backdrop = this.backdrop
 
     modal.classList.remove('show')
-    this.backdrop.classList.remove('show')
+    backdrop?.classList.remove('show')
 
-    setTimeout(() => {
+    this.closeTimeout = setTimeout(() => {
       modal.style.display = 'none'
-      this.backdrop.remove()
-      this.constructor.openCount--
+      backdrop?.remove()
+      this.backdrop = null
+      this.constructor.openCount = Math.max(0, this.constructor.openCount - 1)
+      this.opened = false
+      this.closing = false
 
       if (this.constructor.openCount === 0) {
         document.body.style.overflow = ''
       }
     }, 150)
 
+    backdrop?.removeEventListener('click', this.close)
     document.removeEventListener('keydown', this.escape)
   }
 

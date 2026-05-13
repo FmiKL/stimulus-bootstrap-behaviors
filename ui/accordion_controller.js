@@ -28,9 +28,22 @@ export default class extends Controller {
     autoClose: { type: Boolean, default: true }
   }
 
+  connect() {
+    this.timers = new Map()
+    this.syncTriggers()
+  }
+
+  disconnect() {
+    this.timers.forEach(timer => clearTimeout(timer))
+    this.timers.clear()
+  }
+
   toggle(event) {
+    event?.preventDefault()
+
     const index = this.triggerTargets.indexOf(event.currentTarget)
     const panel = this.panelTargets[index]
+    if (!panel) return
 
     this.isOpen(panel) ? this.close(panel) : this.open(panel, index)
   }
@@ -49,12 +62,13 @@ export default class extends Controller {
     panel.classList.remove('collapse')
 
     panel.style.height = `${panel.scrollHeight}px`
+    this.updateTrigger(index, true)
 
-    setTimeout(() => {
+    this.setTimer(panel, () => {
       panel.classList.remove('collapsing')
       panel.classList.add('collapse', 'show')
       panel.style.height = ''
-    }, 150)
+    })
   }
 
   close(panel) {
@@ -70,15 +84,49 @@ export default class extends Controller {
     void panel.offsetHeight // reflow
 
     panel.style.height = '0px'
+    this.updateTrigger(this.panelTargets.indexOf(panel), false)
 
-    setTimeout(() => {
+    this.setTimer(panel, () => {
       panel.classList.remove('collapsing')
       panel.classList.add('collapse')
       panel.style.height = ''
-    }, 150)
+    })
   }
 
   isOpen(panel) {
     return panel.classList.contains('show')
+  }
+
+  setTimer(panel, callback) {
+    this.clearTimer(panel)
+
+    const timer = setTimeout(() => {
+      this.timers.delete(panel)
+      callback()
+    }, 150)
+
+    this.timers.set(panel, timer)
+  }
+
+  clearTimer(panel) {
+    const timer = this.timers.get(panel)
+    if (!timer) return
+
+    clearTimeout(timer)
+    this.timers.delete(panel)
+  }
+
+  syncTriggers() {
+    this.panelTargets.forEach((panel, index) => {
+      this.updateTrigger(index, this.isOpen(panel))
+    })
+  }
+
+  updateTrigger(index, expanded) {
+    const trigger = this.triggerTargets[index]
+    if (!trigger) return
+
+    trigger.setAttribute('aria-expanded', expanded.toString())
+    trigger.classList.toggle('collapsed', !expanded)
   }
 }

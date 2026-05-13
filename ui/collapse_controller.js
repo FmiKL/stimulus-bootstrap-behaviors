@@ -24,6 +24,16 @@ import { Controller } from '@hotwired/stimulus'
 export default class extends Controller {
   static targets = ['trigger', 'panel']
 
+  connect() {
+    this.timers = new Map()
+    this.syncTriggers()
+  }
+
+  disconnect() {
+    this.timers.forEach(timer => clearTimeout(timer))
+    this.timers.clear()
+  }
+
   toggle(event) {
     event?.preventDefault()
 
@@ -45,11 +55,11 @@ export default class extends Controller {
     panel.style.height = `${panel.scrollHeight}px`
     this.updateTriggers(panel, true)
 
-    setTimeout(() => {
+    this.setTimer(panel, () => {
       panel.classList.remove('collapsing')
       panel.classList.add('collapse', 'show')
       panel.style.height = ''
-    }, 150)
+    })
   }
 
   close(panel = this.panelTarget) {
@@ -64,11 +74,11 @@ export default class extends Controller {
     panel.style.height = '0px'
     this.updateTriggers(panel, false)
 
-    setTimeout(() => {
+    this.setTimer(panel, () => {
       panel.classList.remove('collapsing')
       panel.classList.add('collapse')
       panel.style.height = ''
-    }, 150)
+    })
   }
 
   findPanel(trigger) {
@@ -104,5 +114,30 @@ export default class extends Controller {
 
   isOpen(panel) {
     return panel.classList.contains('show')
+  }
+
+  setTimer(panel, callback) {
+    this.clearTimer(panel)
+
+    const timer = setTimeout(() => {
+      this.timers.delete(panel)
+      callback()
+    }, 150)
+
+    this.timers.set(panel, timer)
+  }
+
+  clearTimer(panel) {
+    const timer = this.timers.get(panel)
+    if (!timer) return
+
+    clearTimeout(timer)
+    this.timers.delete(panel)
+  }
+
+  syncTriggers() {
+    this.panelTargets.forEach(panel => {
+      this.updateTriggers(panel, this.isOpen(panel))
+    })
   }
 }

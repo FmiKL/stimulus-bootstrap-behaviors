@@ -19,7 +19,7 @@
  * </div>
  */
 
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
   static targets = ['trigger', 'menu']
@@ -36,12 +36,21 @@ export default class extends Controller {
     this.triggerTarget.setAttribute('aria-expanded', 'false')
   }
 
+  disconnect() {
+    document.removeEventListener('click', this.closeOnOutsideClick)
+    document.removeEventListener('keydown', this.closeOnEscape)
+    this.menuTarget.classList.remove('show')
+    this.triggerTarget.setAttribute('aria-expanded', 'false')
+  }
+
   toggle(event) {
     event.preventDefault()
     this.menuTarget.classList.contains('show') ? this.close() : this.open()
   }
 
   open() {
+    if (this.menuTarget.classList.contains('show')) return
+
     this.menuTarget.classList.add('show')
     this.triggerTarget.setAttribute('aria-expanded', 'true')
 

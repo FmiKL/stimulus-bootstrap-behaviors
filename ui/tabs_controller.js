@@ -9,7 +9,7 @@
  * </div>
  */
 
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
   static targets = ['tab', 'panel']
@@ -36,7 +36,7 @@ export default class extends Controller {
 
     // activate panel
     targetPanel.classList.add('active')
-    
+
     // fade animation is handled by Bootstrap's CSS
     requestAnimationFrame(() => {
       targetPanel.classList.add('show')

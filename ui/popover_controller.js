@@ -30,10 +30,11 @@ export default class extends Controller {
   }
 
   disconnect() {
-    this.close()
-
+    clearTimeout(this.closeTimeout)
     this.element.removeEventListener('click', this.toggle)
     document.removeEventListener('click', this.outside)
+    this.popover?.remove()
+    this.popover = null
   }
 
   toggle(event) {
@@ -43,6 +44,7 @@ export default class extends Controller {
 
   open() {
     if (this.popover) return
+    clearTimeout(this.closeTimeout)
 
     // create popover element
     this.popover = document.createElement('div')
@@ -82,12 +84,17 @@ export default class extends Controller {
   close() {
     if (!this.popover) return
 
-    this.popover.classList.remove('show')
+    const popover = this.popover
+
+    popover.classList.remove('show')
 
     // wait for fade-out
-    setTimeout(() => {
-      this.popover?.remove()
-      this.popover = null
+    this.closeTimeout = setTimeout(() => {
+      popover.remove()
+
+      if (this.popover === popover) {
+        this.popover = null
+      }
     }, 150)
 
     document.removeEventListener('click', this.outside)

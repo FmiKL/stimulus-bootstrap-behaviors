@@ -40,6 +40,8 @@ export default class extends Controller {
   }
 
   showTooltip() {
+    clearTimeout(this.hideTimeout)
+
     if (this.tooltip) return
 
     this.tooltip = document.createElement('div')
@@ -71,10 +73,12 @@ export default class extends Controller {
     this.tooltip.classList.remove('show')
 
     // remove after fade-out
-    setTimeout(() => this.removeTooltip(), 150)
+    this.hideTimeout = setTimeout(() => this.removeTooltip(), 150)
   }
 
   removeTooltip() {
+    clearTimeout(this.hideTimeout)
+
     if (!this.tooltip) return
     this.tooltip.remove()
     this.tooltip = null

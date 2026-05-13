@@ -33,6 +33,28 @@ export default class extends Controller {
   connect() {
     this.close = this.close.bind(this)
     this.escape = this.escape.bind(this)
+    this.opened = false
+    this.closing = false
+  }
+
+  disconnect() {
+    clearTimeout(this.closeTimeout)
+    document.removeEventListener('keydown', this.escape)
+    this.backdrop?.removeEventListener('click', this.close)
+    this.backdrop?.remove()
+
+    if (this.opened) {
+      this.constructor.openCount = Math.max(0, this.constructor.openCount - 1)
+    }
+
+    if (this.constructor.openCount === 0) {
+      document.body.style.overflow = ''
+    }
+
+    this.panelTarget.classList.remove('show')
+    this.panelTarget.style.visibility = ''
+    this.opened = false
+    this.closing = false
   }
 
   open(event) {
@@ -40,7 +62,9 @@ export default class extends Controller {
     this.trigger = event?.currentTarget
 
     const panel = this.panelTarget
-    if (panel.classList.contains('show')) return
+    if (this.opened || this.closing || panel.classList.contains('show')) return
+
+    this.opened = true
 
     const index = ++this.constructor.openCount
     const zIndex = 1050 + index * 2
@@ -68,25 +92,32 @@ export default class extends Controller {
 
   close() {
     const panel = this.panelTarget
-    if (!panel.classList.contains('show')) return
+    if (!this.opened || this.closing || !panel.classList.contains('show')) return
+
+    this.closing = true
 
     panel.classList.remove('show')
     this.backdrop?.classList.remove('show')
 
-    setTimeout(() => {
+    this.closeTimeout = setTimeout(() => {
+      panel.style.visibility = ''
       this.backdrop?.remove()
-      this.constructor.openCount--
+      this.backdrop = null
+      this.constructor.openCount = Math.max(0, this.constructor.openCount - 1)
+      this.opened = false
+      this.closing = false
 
       if (this.constructor.openCount === 0) {
         document.body.style.overflow = ''
       }
+
+      this.trigger?.dispatchEvent(
+        new CustomEvent('offcanvas:closed', { bubbles: true })
+      )
     }, 150)
 
+    this.backdrop?.removeEventListener('click', this.close)
     document.removeEventListener('keydown', this.escape)
-
-    this.trigger?.dispatchEvent(
-      new CustomEvent('offcanvas:closed', { bubbles: true })
-    )
   }
 
   escape(event) {
