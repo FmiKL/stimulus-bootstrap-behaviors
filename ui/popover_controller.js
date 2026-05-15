@@ -46,14 +46,12 @@ export default class extends Controller {
     if (this.popover) return
     clearTimeout(this.closeTimeout)
 
-    // create popover element
     this.popover = document.createElement('div')
     this.popover.className = `popover bs-popover-${this.placementValue} fade`
     this.popover.role = 'tooltip'
     this.popover.style.position = 'absolute'
     this.popover.style.zIndex = '9999'
 
-    // optional title
     if (this.hasTitleValue && this.titleValue.trim() !== '') {
       const header = document.createElement('h3')
       header.className = 'popover-header'
@@ -61,7 +59,6 @@ export default class extends Controller {
       this.popover.appendChild(header)
     }
 
-    // add body
     const body = document.createElement('div')
     body.className = 'popover-body'
     body.textContent = this.contentValue
@@ -69,15 +66,12 @@ export default class extends Controller {
 
     document.body.appendChild(this.popover)
 
-    // compute initial position
     this.position()
 
-    // fade animation
     requestAnimationFrame(() => {
       this.popover.classList.add('show')
     })
 
-    // close on outside click
     document.addEventListener('click', this.outside)
   }
 
@@ -88,7 +82,6 @@ export default class extends Controller {
 
     popover.classList.remove('show')
 
-    // wait for fade-out
     this.closeTimeout = setTimeout(() => {
       popover.remove()
 
@@ -101,7 +94,6 @@ export default class extends Controller {
   }
 
   outside(event) {
-    // ignore clicks on trigger or popover
     if (this.element.contains(event.target)) return
     if (this.popover?.contains(event.target)) return
 
@@ -116,7 +108,6 @@ export default class extends Controller {
     const w = tip.offsetWidth
     const h = tip.offsetHeight
 
-    // simple placement logic
     const placements = {
       top: () => {
         tip.style.top = `${rect.top - h - margin + window.scrollY}px`
@@ -136,7 +127,6 @@ export default class extends Controller {
       }
     }
 
-    // apply placement
     ;(placements[this.placementValue] || placements.right)()
   }
 }

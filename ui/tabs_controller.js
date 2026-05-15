@@ -25,21 +25,16 @@ export default class extends Controller {
 
     if (!targetPanel) return
 
-    // deactivate all tabs
     this.tabTargets.forEach(tab => tab.classList.remove('active'))
 
-    // deactivate all panels
     this.panelTargets.forEach(panel => {
       panel.classList.remove('show', 'active')
     })
 
-    // activate clicked tab
     clickedTab.classList.add('active')
 
-    // activate panel
     targetPanel.classList.add('active')
 
-    // fade animation is handled by Bootstrap's CSS
     requestAnimationFrame(() => {
       targetPanel.classList.add('show')
     })

@@ -69,7 +69,6 @@ export default class extends Controller {
     const index = ++this.constructor.openCount
     const zIndex = 1050 + index * 2
 
-    // backdrop
     this.backdrop = document.createElement('div')
     this.backdrop.className = 'offcanvas-backdrop fade'
     this.backdrop.style.zIndex = zIndex
@@ -79,7 +78,6 @@ export default class extends Controller {
       this.backdrop.classList.add('show')
     })
 
-    // panel
     panel.style.zIndex = zIndex + 1
     panel.style.visibility = 'visible'
     panel.classList.add('show')

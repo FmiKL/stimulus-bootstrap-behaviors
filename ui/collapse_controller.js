@@ -50,7 +50,7 @@ export default class extends Controller {
     panel.classList.remove('collapse')
     panel.style.height = '0px'
 
-    void panel.offsetHeight
+    void panel.offsetHeight // force reflow
 
     panel.style.height = `${panel.scrollHeight}px`
     this.updateTriggers(panel, true)
@@ -69,7 +69,7 @@ export default class extends Controller {
     panel.classList.add('collapsing')
     panel.classList.remove('collapse', 'show')
 
-    void panel.offsetHeight
+    void panel.offsetHeight // force reflow
 
     panel.style.height = '0px'
     this.updateTriggers(panel, false)

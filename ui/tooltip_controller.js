@@ -50,7 +50,6 @@ export default class extends Controller {
     this.tooltip.style.position = 'absolute'
     this.tooltip.style.zIndex = '9999'
 
-    // inner content
     const inner = document.createElement('div')
     inner.className = 'tooltip-inner'
     inner.textContent = this.contentValue
@@ -58,10 +57,8 @@ export default class extends Controller {
 
     document.body.appendChild(this.tooltip)
 
-    // position before show animation
     this.positionTooltip()
 
-    // show animation
     requestAnimationFrame(() => {
       this.tooltip.classList.add('show')
     })
@@ -72,7 +69,6 @@ export default class extends Controller {
 
     this.tooltip.classList.remove('show')
 
-    // remove after fade-out
     this.hideTimeout = setTimeout(() => this.removeTooltip(), 150)
   }
 
@@ -107,7 +103,7 @@ export default class extends Controller {
         tip.style.left = `${rect.right + margin + window.scrollX}px`
         break
 
-      default: // top
+      default:
         tip.style.top = `${rect.top - tip.offsetHeight - margin + window.scrollY}px`
         tip.style.left = `${rect.left + rect.width / 2 - tip.offsetWidth / 2 + window.scrollX}px`
     }

@@ -54,7 +54,6 @@ export default class extends Controller {
     this.menuTarget.classList.add('show')
     this.triggerTarget.setAttribute('aria-expanded', 'true')
 
-    // global listeners to close dropdown
     document.addEventListener('click', this.closeOnOutsideClick)
     document.addEventListener('keydown', this.closeOnEscape)
   }
@@ -65,7 +64,6 @@ export default class extends Controller {
     this.menuTarget.classList.remove('show')
     this.triggerTarget.setAttribute('aria-expanded', 'false')
 
-    // remove global listeners
     document.removeEventListener('click', this.closeOnOutsideClick)
     document.removeEventListener('keydown', this.closeOnEscape)
   }
@@ -85,7 +83,6 @@ export default class extends Controller {
   applyPlacement() {
     const menu = this.menuTarget
 
-    // reset styles
     menu.style.position = 'absolute'
     menu.style.top = '100%'
     menu.style.left = ''

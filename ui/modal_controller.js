@@ -78,13 +78,11 @@ export default class extends Controller {
     this.messageEl.textContent = this.contentValue
     this.footerEl.innerHTML = ''
 
-    // size
     this.dialogEl.className = 'modal-dialog js-modal-dialog'
     if (this.hasSizeValue) {
       this.dialogEl.classList.add(`modal-${this.sizeValue}`)
     }
 
-    // cancel
     if (this.confirmValue) {
       const cancel = document.createElement('button')
       cancel.type = 'button'
@@ -99,7 +97,6 @@ export default class extends Controller {
       this.footerEl.appendChild(cancel)
     }
 
-    // ok
     const ok = document.createElement('button')
     ok.type = 'button'
     ok.className = 'btn btn-primary btn-sm'
@@ -171,19 +168,16 @@ export default class extends Controller {
 
     const el = this.trigger
 
-    // form
     if (el?.form) {
       el.form.submit()
       return
     }
 
-    // link
     if (el?.tagName === 'A' && el.href) {
       window.location.href = el.href
       return
     }
 
-    // event
     el?.dispatchEvent(new CustomEvent('modal:confirmed', { bubbles: true }))
   }
 }

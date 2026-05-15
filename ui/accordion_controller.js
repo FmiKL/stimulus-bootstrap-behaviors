@@ -57,7 +57,6 @@ export default class extends Controller {
 
     if (this.isOpen(panel)) return
 
-    // open animation
     panel.classList.add('collapsing')
     panel.classList.remove('collapse')
 
@@ -76,12 +75,11 @@ export default class extends Controller {
 
     const height = panel.scrollHeight
 
-    // close animation
     panel.style.height = `${height}px`
     panel.classList.add('collapsing')
     panel.classList.remove('collapse', 'show')
 
-    void panel.offsetHeight // reflow
+    void panel.offsetHeight // force reflow
 
     panel.style.height = '0px'
     this.updateTrigger(this.panelTargets.indexOf(panel), false)

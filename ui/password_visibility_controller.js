@@ -28,8 +28,9 @@ export default class extends Controller {
     const isPassword = this.inputTarget.type === 'password'
     this.inputTarget.type = isPassword ? 'text' : 'password'
 
-    // [0] eye-slash, [1] eye
-    const [eyeSlash, eye] = this.toggleTarget.querySelectorAll('i')
+    const icons = this.toggleTarget.querySelectorAll('i')
+    const eyeSlash = icons[0]
+    const eye = icons[1]
 
     if (isPassword) {
       eyeSlash.classList.add('d-none')
