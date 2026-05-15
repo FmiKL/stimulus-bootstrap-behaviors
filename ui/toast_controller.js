@@ -46,7 +46,9 @@ export default class extends Controller {
 
     requestAnimationFrame(() => {
       this.element.classList.add('show')
-      this.element.dispatchEvent(new CustomEvent('toast:shown', { bubbles: true }))
+      this.element.dispatchEvent(
+        new CustomEvent('toast:shown', { bubbles: true })
+      )
       this.scheduleHide()
     })
   }
@@ -61,7 +63,9 @@ export default class extends Controller {
 
     this.hideTimeout = setTimeout(() => {
       this.element.style.display = 'none'
-      this.element.dispatchEvent(new CustomEvent('toast:hidden', { bubbles: true }))
+      this.element.dispatchEvent(
+        new CustomEvent('toast:hidden', { bubbles: true })
+      )
     }, 150)
   }
 

@@ -88,7 +88,8 @@ export default class extends Controller {
     const href = trigger.getAttribute('href')
 
     if (id) return this.panelTargets.find(panel => panel.id === id)
-    if (href?.startsWith('#')) return this.panelTargets.find(panel => `#${panel.id}` === href)
+    if (href?.startsWith('#'))
+      return this.panelTargets.find(panel => `#${panel.id}` === href)
 
     return this.panelTarget
   }

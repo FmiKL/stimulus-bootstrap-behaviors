@@ -92,7 +92,9 @@ export default class extends Controller {
       cancel.textContent = 'Cancel'
       cancel.addEventListener('click', () => {
         this.close()
-        this.trigger?.dispatchEvent(new CustomEvent('modal:cancelled', { bubbles: true }))
+        this.trigger?.dispatchEvent(
+          new CustomEvent('modal:cancelled', { bubbles: true })
+        )
       })
       this.footerEl.appendChild(cancel)
     }

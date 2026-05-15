@@ -19,7 +19,9 @@ export default class extends Controller {
 
     const clickedTab = event.currentTarget
     const targetSelector = clickedTab.getAttribute('href')
-    const targetPanel = this.panelTargets.find(panel => `#${panel.id}` === targetSelector)
+    const targetPanel = this.panelTargets.find(
+      panel => `#${panel.id}` === targetSelector
+    )
 
     if (!targetPanel) return
 

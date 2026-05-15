@@ -92,7 +92,8 @@ export default class extends Controller {
 
   close() {
     const panel = this.panelTarget
-    if (!this.opened || this.closing || !panel.classList.contains('show')) return
+    if (!this.opened || this.closing || !panel.classList.contains('show'))
+      return
 
     this.closing = true
 

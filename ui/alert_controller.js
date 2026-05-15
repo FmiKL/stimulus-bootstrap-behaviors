@@ -30,7 +30,9 @@ export default class extends Controller {
     this.element.classList.remove('show')
 
     this.closeTimeout = setTimeout(() => {
-      this.element.dispatchEvent(new CustomEvent('alert:closed', { bubbles: true }))
+      this.element.dispatchEvent(
+        new CustomEvent('alert:closed', { bubbles: true })
+      )
       this.element.remove()
     }, 150)
   }
